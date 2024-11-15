@@ -7,7 +7,7 @@ public class ResourceManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI resourceText; // Kaynak texti
 
-    private int currentResource = 0; // Toplam kaynak
+    [SerializeField] private int currentResource = 0; // Toplam kaynak
 
     private void Start()
     {
@@ -22,11 +22,17 @@ public class ResourceManager : MonoBehaviour
     }
 
     // Kaynak kaybetme
-    public void ReduceResource(int resourceCount)
+    public bool ReduceResource(int resourceCount)
     {
         currentResource -= resourceCount;
-        if (currentResource < 0) currentResource = 0;
+        if (currentResource <= 0)
+        {
+            currentResource = 0;
+            return false;
+        }
         resourceText.text = currentResource.ToString();
+
+        return true;
     }
     // Kaynak çarpma
     public void MultiplyResource(int resourceCount)
