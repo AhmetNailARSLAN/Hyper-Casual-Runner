@@ -24,7 +24,9 @@ public class Block : MonoBehaviour
             if (collision.gameObject.GetComponent<ResourceManager>().ReduceResource(resource))
             {
                 // Bazý efektler eklenebilir
+                collision.gameObject.GetComponent<PlayerAnimations>().KickAnimaiton();
                 Destroy(gameObject);
+
             }
             else
             {
