@@ -29,6 +29,7 @@ public class Block : MonoBehaviour
             else
             {
                 // Oyunu sonlandýracak mekanikler
+                GameManager.Instance.OnGameLost();
             }
             
         }

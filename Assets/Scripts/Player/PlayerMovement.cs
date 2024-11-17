@@ -11,13 +11,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        // Oyuncunun ileri hareketi
-        transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
-
-        // Eðer fareye týklanýyorsa, hareketi kontrol et
-        if (Input.GetMouseButton(0))
+        // Oyun baþladýysa hareket etmeye baþla
+        if (GameManager.Instance.currentMode == GameMode.Running)
         {
-            HandleSidewayMovement();
+            // Oyuncunun ileri hareketi
+            transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
+
+            // Eðer fareye týklanýyorsa, hareketi kontrol et
+            if (Input.GetMouseButton(0))
+            {
+                HandleSidewayMovement();
+            }
         }
     }
 
