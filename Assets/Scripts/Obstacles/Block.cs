@@ -10,10 +10,14 @@ public class Block : MonoBehaviour
 
     [Header("Referances")]
     [SerializeField] private TextMeshPro resourceText;
+    [SerializeField] private Material[] materials;
 
     private void Start()
     {
         resourceText.text = resource.ToString();
+
+        int i = Random.Range(0, materials.Length);
+        gameObject.GetComponent<MeshRenderer>().material = materials[i];
     }
 
     private void OnCollisionEnter(Collision collision)
