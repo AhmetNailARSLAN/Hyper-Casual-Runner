@@ -28,12 +28,12 @@ public class SoundManager : MonoBehaviour
 
     public void PlayFinishSound()
     {
-        _audioSource.PlayOneShot(collectSound);
+        _audioSource.PlayOneShot(finishSound);
     }
 
     public void PlayCrashSound()
     {
-        _audioSource.PlayOneShot(collectSound);
+        _audioSource.PlayOneShot(crashSound);
     }
 
     public void PlayCollectSound()
