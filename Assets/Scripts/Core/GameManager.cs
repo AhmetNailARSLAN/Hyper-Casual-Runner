@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    public Canvas canvas;
+    public GameObject managers;
+
     public GameMode currentMode; // Aktif oyun durumu
-    private PlayerAnimations playerAnimations;
+
+    private int currentLevel;
 
     private void Awake()
     {
@@ -20,9 +25,7 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
 
-        playerAnimations = FindAnyObjectByType<PlayerAnimations>();
-
-        OnGameRunning(); // Denemek için runningde baþlatýyoruz
+        OnGameRunning();
     }
 
     public void OnMenu()
@@ -35,22 +38,55 @@ public class GameManager : MonoBehaviour
 
     public void OnGameRunning()
     {
+        //Game Modu Running olarak deðiþtir ve karakteri koþtur
         currentMode = GameMode.Running;
-        playerAnimations.RunAnimation();
+        PlayerAnimations.Instance.RunAnimation();
     }
 
-    public void OnGameLost()
+    public void OnGameFailed()
     {
-        currentMode = GameMode.Lost;
-        playerAnimations.LoseAnimation();
-        // oyun sonu ekraný için bazý ui mekanikleri
+        //Game Modu Failed olarak deðiþtir ve kaybetme mekanikleri uygula
+        currentMode = GameMode.Failed;
+        PlayerAnimations.Instance.LoseAnimation();
+        GameUIManager.Instance.OpenFailPanel(true);
+        SoundManager.Instance.PlayCrashSound();
     }
 
 
     public void OnGameWon()
     {
+        //Game Modu won olarak deðiþtir ve kazanma mekanikleri
         currentMode = GameMode.Won;
-        playerAnimations.WinAnimation();
+        PlayerAnimations.Instance.WinAnimation();
+        GameUIManager.Instance.OpenWinPanel(true);
+    }
+
+    public void RestartGame()
+    {
+        // Fail Panelini kapat
+        GameUIManager.Instance.OpenFailPanel(false);
+
+        // Bulunduðumuz sahneyi yeniden Baþlatýr
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        OnGameRunning();
+    }
+
+    public void NextLevel()
+    {
+        // Paneli geri kapat
+        GameUIManager.Instance.OpenWinPanel(false);
+
+        // Yeni sahneye geçerken kaybolmasýný istemediðimiz objeler
+        DontDestroyOnLoad(canvas);
+        DontDestroyOnLoad(managers);
+
+        // Bir sonraki leveli yükle
+        SceneManager.LoadScene(currentLevel + 1);
+        currentLevel++;
+
+        // Tekrardan koþu moduna geçmek için
+        OnGameRunning();
     }
 
 }
@@ -59,5 +95,5 @@ public enum GameMode
     Menu,
     Running,
     Won,
-    Lost
+    Failed
 }

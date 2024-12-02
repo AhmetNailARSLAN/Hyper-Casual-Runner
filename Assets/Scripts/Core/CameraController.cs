@@ -8,6 +8,11 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Vector3 offset; // Kamera ile oyuncu arasýndaki mesafe
     [SerializeField] private float followSpeed = 10f; // Kamera takip hýzýný ayarlamak için
 
+    private void Start()
+    {
+        Camera.SetupCurrent(gameObject.GetComponent<Camera>());
+    }
+
     private void LateUpdate()
     {
         // Hedef pozisyonu hesapla (oyuncunun pozisyonu + ofset)

@@ -37,7 +37,7 @@ public class Block : MonoBehaviour
             {
                 // Duvara çarptýðýnda
                 // Oyunu sonlandýracak mekanikler
-                GameManager.Instance.OnGameLost();
+                GameManager.Instance.OnGameFailed();
             }
             
         }

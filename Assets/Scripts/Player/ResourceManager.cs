@@ -9,6 +9,8 @@ public class ResourceManager : MonoBehaviour
 
     [SerializeField] private int currentResource = 0; // Toplam kaynak
 
+    public int CurrentResource { get => currentResource;}
+
     private void Start()
     {
         resourceText.text = currentResource.ToString();
