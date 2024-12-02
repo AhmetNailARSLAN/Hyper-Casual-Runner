@@ -15,7 +15,7 @@ public class Block : MonoBehaviour
     private void Start()
     {
         resourceText.text = resource.ToString();
-
+        // oyun baþladýðýnda random bir renk alsýn
         int i = Random.Range(0, materials.Length);
         gameObject.GetComponent<MeshRenderer>().material = materials[i];
     }
@@ -24,16 +24,18 @@ public class Block : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            SoundManager.Instance.PlayBreakSound();
             // Duvarý geçebildi mi?
             if (collision.gameObject.GetComponent<ResourceManager>().ReduceResource(resource))
             {
-                // Bazý efektler eklenebilir
+                // Duvara kýrdýðýnda
                 collision.gameObject.GetComponent<PlayerAnimations>().KickAnimaiton();
-                Destroy(gameObject);
 
+                Destroy(gameObject);
             }
             else
             {
+                // Duvara çarptýðýnda
                 // Oyunu sonlandýracak mekanikler
                 GameManager.Instance.OnGameLost();
             }

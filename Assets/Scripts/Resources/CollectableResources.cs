@@ -8,6 +8,7 @@ public class CollectableResources : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             other.gameObject.GetComponent<ResourceManager>().AddResource(resourceAmount);
+            SoundManager.Instance.PlayCollectSound();
             Destroy(gameObject);
         }
     }
