@@ -1,6 +1,6 @@
 # Hyper-Casual-Runner
  
-Runner tarzında geliştirmekte olduğum örnek Unity projesi
+T3 Vakfı Gönüllü akademisinde eğitimini verdiğim Unity Projesi
 
 ![Ekran görüntüsü 2024-12-02 162543](https://github.com/user-attachments/assets/d52c7a54-9255-4780-a13e-4d5f30697832)
 
